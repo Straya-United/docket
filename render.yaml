@@ -1,0 +1,24 @@
+# Render Blueprint: one Node web service. Set PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET and OPENAI_API_KEY as secrets in the dashboard.
+services:
+  - type: web
+    name: docket-quote-to-paid
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22.19.0
+      - key: OPENAI_MODEL
+        value: gpt-5.6-terra
+      - key: AI_PER_IP_HOUR
+        value: "30"
+      - key: AI_DAILY_CAP
+        value: "400"
+      - key: PAYPAL_CLIENT_ID
+        sync: false
+      - key: PAYPAL_CLIENT_SECRET
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false

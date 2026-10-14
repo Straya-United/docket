@@ -1,0 +1,13 @@
+{
+  "name": "docket",
+  "version": "1.0.0",
+  "description": "Quote to paid for tradies: rough job notes become a priced quote, a PayPal invoice and a deposit checkout, with an AI offsider that chases what's owing.",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=22.19.0" },
+  "scripts": {
+    "start": "node server.mjs",
+    "dev:mock": "PAYPAL_MOCK=1 LLM_MOCK=1 node server.mjs",
+    "test": "node --test test/*.test.mjs"
+  }
+}

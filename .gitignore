@@ -1,0 +1,9 @@
+node_modules/
+.env
+*.env
+video/
+shots/raw/
+*.log
+*.err
+scripts/*probe*.mjs
+scripts/start-live.ps1

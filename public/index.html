@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Docket: quote to paid</title>
+<meta name="description" content="Rough job notes become a priced quote, a PayPal invoice and a deposit checkout. An AI offsider chases what's owing.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <a class="mark" href="/"><b>Docket</b><span id="bizName">quote to paid</span></a>
+    <dl class="tally" aria-label="Money position">
+      <div class="owing"><dt>Owing to you</dt><dd id="tOwing">$0.00</dd></div>
+      <div><dt>Waiting on approval</dt><dd id="tWaiting">$0.00</dd></div>
+      <div><dt>Paid through PayPal</dt><dd id="tPaid">$0.00</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main class="wrap">
+  <div>
+    <section class="panel stack" aria-labelledby="newH">
+      <h2 id="newH">New job</h2>
+      <p class="muted small">Say or type it the way you'd tell a mate. Docket prices it from your price book.</p>
+      <form id="draftForm" class="stack">
+        <label for="notes" class="sr">Job notes</label>
+        <div class="row" style="align-items:flex-start">
+          <textarea id="notes" style="flex:1" placeholder="e.g. Jane Citizen, jane@example.com, Andergrove. Swap 6 old halogen downlights in the kitchen for LED, she has a dimmer. 2 double power points in the garage."></textarea>
+        </div>
+        <div class="row">
+          <button type="button" class="btn mic" id="mic" aria-pressed="false" aria-label="Dictate job notes" title="Dictate">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg>
+          </button>
+          <button class="btn primary" id="draftBtn" style="flex:1">Draft the quote</button>
+        </div>
+        <div class="chips" aria-label="Example jobs">
+          <button type="button" class="chip" data-ex="Jane Citizen, jane@example.com, Andergrove. Swap 6 old halogen downlights in the kitchen for LED, she has a dimmer on them. Add 2 double power points in the garage on the back wall. Easy roof access.">Downlights + garage power</button>
+          <button type="button" class="chip" data-ex="Mr and Mrs Nguyen, nguyen.family@example.com, Glenella. Rental going on the market, need 240V interconnected smoke alarms to meet QLD rules: 3 bedrooms, hallway and living room. Existing old 9V alarms to come out. Two-storey.">Smoke alarm compliance</button>
+          <button type="button" class="chip" data-ex="Dave, dave.p@example.com, Eimeo. Install 3 ceiling fans he's bought himself in the bedrooms, existing light points. Plus a weatherproof double power point out on the deck for the bbq. About 40 km from the shop.">Fans + deck power</button>
+        </div>
+      </form>
+      <ul class="steps" id="steps" aria-live="polite"></ul>
+    </section>
+
+    <section class="panel" aria-labelledby="jobsH">
+      <h2 id="jobsH">Jobs</h2>
+      <ul class="jobs" id="jobs"></ul>
+    </section>
+
+    <section class="panel">
+      <details class="settings">
+        <summary>Price book and deposit</summary>
+        <p class="muted small" style="margin-top:8px">The AI only picks items. Every price comes from here, ex-GST.</p>
+        <label for="depPct" style="margin-top:8px">Deposit to book a job (%)</label>
+        <input id="depPct" type="number" min="0" max="100" step="5" style="width:110px">
+        <table class="rc"><tbody id="rcBody"></tbody></table>
+        <div class="row" style="margin-top:8px">
+          <button type="button" class="btn ghost small" id="rcAdd">Add item</button>
+          <button type="button" class="btn small" id="rcSave">Save price book</button>
+          <span id="rcMsg" class="small" aria-live="polite"></span>
+        </div>
+      </details>
+    </section>
+  </div>
+
+  <div>
+    <section id="jobView" aria-live="polite">
+      <div class="panel">
+        <h2>From the ute to paid</h2>
+        <p style="margin-top:10px">Dictate a job and Docket writes the quote from your price book. One tap sends it as a PayPal invoice with a link where your customer approves and pays the deposit. Extras found on site go through as a variation they approve. When you finish, they pay the balance on the same link.</p>
+        <p class="muted small">This is a demo on PayPal's sandbox, so no real money moves. Customer emails go to PayPal's sandbox, not to real inboxes.</p>
+      </div>
+    </section>
+
+    <section class="panel ask" aria-labelledby="askH" style="margin-top:20px">
+      <h2 id="askH">Ask Docket</h2>
+      <p class="muted small">Your offsider for the money side. It looks things up in PayPal and drafts reminders and variations. Nothing goes to a customer until you tap Confirm.</p>
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <form id="askForm" class="row">
+        <label for="askIn" class="sr">Ask Docket</label>
+        <input id="askIn" type="text" placeholder="Who still owes me money?" style="flex:1" autocomplete="off">
+        <button class="btn primary" id="askBtn">Ask</button>
+      </form>
+      <div class="chips" style="margin-top:8px">
+        <button type="button" class="chip" data-ask="Who still owes me money?">Who owes me?</button>
+        <button type="button" class="chip" data-ask="Chase anyone who owes me with a friendly reminder.">Chase what's owing</button>
+        <button type="button" class="chip" data-ask="Has the deposit come through on my latest job? Check PayPal.">Check the latest deposit</button>
+      </div>
+    </section>
+  </div>
+</main>
+<footer class="foot">Docket is a hackathon demo by AppForge Digital, running on PayPal's sandbox. Business, customers and prices are made up.</footer>
+
+<div id="toast" class="toast" role="status" hidden></div>
+<template id="lineTpl">
+  <tr>
+    <td><input class="d" aria-label="Description"><span class="why"></span></td>
+    <td class="r"><input class="q" type="number" step="0.25" min="0" aria-label="Quantity"> <span class="u"></span></td>
+    <td class="r"><input class="p" type="number" step="0.01" min="0" aria-label="Unit price ex GST"></td>
+    <td class="r t"></td>
+    <td><button type="button" class="x" aria-label="Remove line">×</button></td>
+  </tr>
+</template>
+<script src="/app.js" type="module"></script>
+</body>
+</html>
