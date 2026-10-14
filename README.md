@@ -4,7 +4,7 @@ Docket turns the notes a tradie dictates in the ute into a priced quote, a **Pay
 
 Built for the [PayPal AI Hackathon](https://paypalaihackathon.devpost.com/) (2026) by AppForge Digital. It runs entirely on the **PayPal sandbox**, so no real money moves.
 
-**Live demo:** _Render URL goes here_ · **Video:** _YouTube link goes here_
+**Live demo:** https://docket-quote-to-paid.onrender.com (free Render instance: the first visit after a quiet spell can take up to a minute to wake). **Video:** _coming soon_
 
 ## Who it's for
 
