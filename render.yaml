@@ -9,7 +9,7 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
-        value: 22.19.0
+        value: 22.23.4
       - key: OPENAI_MODEL
         value: gpt-5.6-terra
       - key: AI_PER_IP_HOUR
